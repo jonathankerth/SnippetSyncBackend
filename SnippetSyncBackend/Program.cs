@@ -41,4 +41,6 @@ app.UseStaticFiles();
 app.UseAuthorization();
 app.MapControllers();
 app.MapGet("/health", () => "Healthy"); // Health check endpoint
-app.Run("http://*:80");
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
+app.Run($"http://*:{port}");
