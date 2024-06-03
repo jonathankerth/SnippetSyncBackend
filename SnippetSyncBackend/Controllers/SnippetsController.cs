@@ -22,7 +22,7 @@ namespace SnippetSyncBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CodeSnippet>>> GetSnippets()
         {
-            return await _context.CodeSnippets.ToListAsync();
+            return await _context.CodeSnippets.Include(cs => cs.Tags).ToListAsync();
         }
 
         [HttpPost]
@@ -56,7 +56,7 @@ namespace SnippetSyncBackend.Controllers
         public async Task<ActionResult<IEnumerable<CodeSnippet>>> SearchSnippets(string query)
         {
             return await _context.CodeSnippets
-                .Where(s => s.Title.Contains(query) || s.Code.Contains(query) || s.Tags.Contains(query))
+                .Where(s => s.Title.Contains(query) || s.Code.Contains(query) || s.Tags.Any(t => t.Name.Contains(query)))
                 .ToListAsync();
         }
     }

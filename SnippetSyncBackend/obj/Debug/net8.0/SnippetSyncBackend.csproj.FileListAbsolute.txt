@@ -112,6 +112,7 @@
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/SnippetSyncBackend.csproj.CoreCompileInputs.cache
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/SnippetSyncBackend.MvcApplicationPartsAssemblyInfo.cs
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/SnippetSyncBackend.MvcApplicationPartsAssemblyInfo.cache
+/Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/SnippetSyncBackend.sourcelink.json
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/staticwebassets.build.json
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/staticwebassets.development.json
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/staticwebassets/msbuild.SnippetSyncBackend.Microsoft.AspNetCore.StaticWebAssets.props
@@ -126,3 +127,5 @@
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/SnippetSyncBackend.pdb
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/SnippetSyncBackend.genruntimeconfig.cache
 /Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/obj/Debug/net8.0/ref/SnippetSyncBackend.dll
+/Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/bin/Debug/net8.0/AspNetCoreRateLimit.dll
+/Users/jonathankerth/code/SnippetSyncBackend/SnippetSyncBackend/bin/Debug/net8.0/Newtonsoft.Json.dll
