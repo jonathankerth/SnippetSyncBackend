@@ -11,7 +11,6 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var dbPath = Path.Combine(Directory.GetCurrentDirectory(), "snippetsync.db");
 builder.Services.AddDbContext<SnippetContext>(options =>
     options.UseSqlite($"Data Source={dbPath}"));
@@ -22,37 +21,16 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-// Add Rate Limiting
-builder.Services.AddOptions();
-builder.Services.AddMemoryCache();
-builder.Services.Configure<IpRateLimitOptions>(options =>
-{
-    options.GeneralRules = new List<RateLimitRule>
-    {
-        new RateLimitRule
-        {
-            Endpoint = "*",
-            Limit = 100,
-            Period = "1h"
-        }
-    };
-});
-builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-builder.Services.AddInMemoryRateLimiting();
-
 var app = builder.Build();
 
-// Ensure the database file is created if it doesn't exist
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<SnippetContext>();
     dbContext.Database.Migrate();
 
-    // Log data to confirm seeding
     var tags = dbContext.Tags.ToList();
     var snippets = dbContext.CodeSnippets.Include(cs => cs.Tags).ToList();
 
@@ -71,7 +49,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseDeveloperExceptionPage();
@@ -79,16 +56,15 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "SnippetSync API V1");
-        c.RoutePrefix = string.Empty; // Serve Swagger UI at the app's root (http://localhost:8080/)
+        c.RoutePrefix = string.Empty;
     });
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthorization();
-app.UseIpRateLimiting();
 app.MapControllers();
-app.MapGet("/health", () => "Healthy"); // Health check endpoint
+app.MapGet("/health", () => "Healthy");
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
 app.Run($"http://*:{port}");

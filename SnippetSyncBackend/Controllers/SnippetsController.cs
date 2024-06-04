@@ -25,12 +25,20 @@ namespace SnippetSyncBackend.Controllers
             return await _context.CodeSnippets.Include(cs => cs.Tags).ToListAsync();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CodeSnippet>> GetSnippet(int id)
+        {
+            var snippet = await _context.CodeSnippets.Include(cs => cs.Tags).FirstOrDefaultAsync(cs => cs.Id == id);
+            if (snippet == null) return NotFound();
+            return snippet;
+        }
+
         [HttpPost]
         public async Task<ActionResult<CodeSnippet>> CreateSnippet(CodeSnippet snippet)
         {
             _context.CodeSnippets.Add(snippet);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetSnippets), new { id = snippet.Id }, snippet);
+            return CreatedAtAction(nameof(GetSnippet), new { id = snippet.Id }, snippet);
         }
 
         [HttpPut("{id}")]
@@ -38,7 +46,15 @@ namespace SnippetSyncBackend.Controllers
         {
             if (id != snippet.Id) return BadRequest();
             _context.Entry(snippet).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.CodeSnippets.Any(e => e.Id == id)) return NotFound();
+                else throw;
+            }
             return NoContent();
         }
 
@@ -57,6 +73,7 @@ namespace SnippetSyncBackend.Controllers
         {
             return await _context.CodeSnippets
                 .Where(s => s.Title.Contains(query) || s.Code.Contains(query) || s.Tags.Any(t => t.Name.Contains(query)))
+                .Include(cs => cs.Tags)
                 .ToListAsync();
         }
     }

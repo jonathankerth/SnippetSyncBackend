@@ -21,14 +21,12 @@ namespace SnippetSyncBackend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Seed Tags
             modelBuilder.Entity<Tag>().HasData(
                 new Tag { Id = 1, Name = "C#" },
                 new Tag { Id = 2, Name = "JavaScript" },
                 new Tag { Id = 3, Name = "Python" }
             );
 
-            // Seed CodeSnippets
             modelBuilder.Entity<CodeSnippet>().HasData(
                 new CodeSnippet
                 {
@@ -53,7 +51,6 @@ namespace SnippetSyncBackend.Data
                 }
             );
 
-            // Establish relationships
             modelBuilder.Entity<CodeSnippet>()
                 .HasMany(cs => cs.Tags)
                 .WithMany(t => t.CodeSnippets)

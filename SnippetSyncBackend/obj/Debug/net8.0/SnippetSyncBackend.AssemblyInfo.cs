@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SnippetSyncBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea838f0179943cb09ae9b9f0e2ad2383e53e43a8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3033a43c07ee6989b2370cffd2230a7ca8e43fd5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SnippetSyncBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SnippetSyncBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
